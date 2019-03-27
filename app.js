@@ -14,17 +14,12 @@ app.use(session({
 app.set('view engine','ejs')
 
 app.get('/', function (req,res){
-    model.User.findAll({
-        include: [{model: model.User, as: "user"}]
-    })
-    .then(data=>{
-        res.send(req.session)
-    })
+    res.render('home')
 })
 
 app.use('/login', require('./routes/loginRoute') )
 
-app.use('/user',require('./routes/userRoute'))
+app.use('/user', auth, require('./routes/userRoute'))
 app.use('/register',require('./routes/registerRoute'))
 
 
