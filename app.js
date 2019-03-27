@@ -15,7 +15,7 @@ app.get('/', function (req,res){
         res.send(data)
     })
 })
-
+app.use('/register',require('./routes/registerRoute'))
 app.listen(8080, ()=>{
     console.log('server is running')
 })
