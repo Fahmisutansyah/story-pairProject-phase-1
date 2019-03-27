@@ -19,7 +19,7 @@ route.post('/', function(req,res){
            }
            res.send(req.session)
        }else{
-           res.send(`salah pasword`)
+           res.send('/login')
        }
     })
     .catch(data=>{
