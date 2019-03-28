@@ -24,7 +24,7 @@ app.get('/', function (req,res){
 
 app.use('/login', require('./routes/loginRoute') )
 
-app.use('/user',auth,require('./routes/userRoute'))
+app.use('/user', auth,require('./routes/userRoute'))
 app.use('/register',require('./routes/registerRoute'))
 
 
