@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'gozali',
 }))
+app.use(express.static('public'))
 
 
 app.get('/', function (req,res){
@@ -25,6 +26,6 @@ app.use('/user', auth, require('./routes/userRoute'))
 app.use('/register',require('./routes/registerRoute'))
 
 
-app.listen(3000, ()=>{
-    console.log('server is running')
+app.listen(8080, ()=>{
+    console.log('server is running at port 8080')
 })

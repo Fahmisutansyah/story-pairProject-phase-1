@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const model = require('../models')
+const Op = model.Sequelize.Op
 const multer = require('multer')
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,13 +33,50 @@ route.post('/editProfile',upload.single('avatar'),(req,res)=>{
 })
 
 route.get('/', function(req,res){
+    let dataUser = null
+    let photos = null
     model.User.findAll({
-        where:{id: req.session.user.id},
-        include: [{model: model.User, as: 'Teman'}]
+        include: [{model: model.User, as: 'Teman'},{model: model.Photo}],
+        where:{id: req.session.user.id}
     })
     .then(data=>{
-        res.render('userTimeline', {user: data})
+        dataUser = data[0]
+        return model.Photo.findAll({
+            include: [{model: model.User}],
+            order: [['id', 'DESC']]
+        })
     })
+    .then(data=>{
+        photos = data
+        return model.User.findAll({
+            include:[{model: model.User, as: "Teman"}],
+            where:{id: {[Op.ne]: req.session.user.id}}
+        })
+    })
+    .then(data=>{
+        res.render('userTimeline', {user: dataUser, photos: photos, notFriends: data})
+        // res.send(data)
+    })
+})
+route.get('/add/:friendId/:userId', function(req,res){
+    model.Friend.create({
+        userId: req.params.userId,
+        friendId: req.params.friendId
+    })
+    .then(data =>{
+        model.Friend.create({
+            userId: req.params.friendId,
+            friendId: req.params.userId
+        })
+    })
+    .then(data =>{
+        res.redirect('/user')
+    })
+})
+
+route.get('/logout', function(req,res){
+    req.session = null
+    res.redirect('/')
 })
 
 route.get('/profile',function(req,res){

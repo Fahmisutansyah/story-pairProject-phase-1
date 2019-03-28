@@ -3,9 +3,68 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%- include('../partials/navbar') %>
-    <title>Page Title</title>
+    <title><%= `${user.username}'s Story` %></title>
 </head>
 <body>
     
+
+    <section class="container">
+        <div class="row" style="padding-top: 70px">
+            <div class="col-md-8" style="padding-top: 85px;padding-left: 150px">
+                <% for(let i = 0; i < photos.length; i++) { %>
+                    <% for(let j = 0; j < user.Teman.length; j++) { %>
+                        <% if (photos[i].User.username === user.Teman[j].username && user.Teman[j].Friend.status === 1) { %>
+                            <article style="padding-bottom: 50px; width: 35em">
+                                <header style="background-color: #efefef;height: 52px" class="container">
+                                    <div class="row" style="height: 52px">
+                                        <img src="<%= user.Teman[j].imageProfile %>" class="col-md-2" style="border-radius: 50%;padding-top: 1%;padding-bottom: 1%;padding-right: 4%; padding-left: 4%">
+                                        <h5 style="padding-left: 0px;padding-top: 14px;" class="col-md-10"><%= user.Teman[j].username %></h5>
+                                    </div>
+                                </header>
+                                <div>
+                                    <img src="<%= photos[i].path %>" style="max-width: 100%">
+                                </div>
+                            </article>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="col-md-4" style="padding-top: 85px">
+                <div style="background-color: #efefef;height: 40px;width: 70%">
+                    <h6 style="margin-left: 5px;padding-top: 10px">Suggested</h6>
+                </div>
+            <div>
+                    <div style="height: 350px; overflow: hidden auto;width: 250px;padding-top: 20px">
+                        <div style="padding-left: 10px">
+                            <% for(let i = 0; i < notFriends.length; i++) { %>
+                                <%  let friends = false %>
+                                <% let friendId = null%>
+                                <% for (let j=0; j < notFriends[i].Teman.length; j++) { %>
+                                    <% if(notFriends[i].Teman[j].id === user.id){ %>
+                                        <% friends = true %>
+                                        <% break %>   
+                                    <% } %>
+                                <% } %>
+                                <% if (friends === false) { %>
+                                    <div class="container">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="col-md-8" style="margin-bottom: 7px;margin-top: 4px">
+                                                <span><a href="/user" style="color: black"><%= notFriends[i].username %></a></span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a class="btn btn-light" href="/user/add/<%= notFriends[i].id %>/<%= user.id %>">Add</a>
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
 </body>
 </html>
