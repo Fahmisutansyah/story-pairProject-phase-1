@@ -17,7 +17,7 @@ route.get('/editProfile',(req,res)=>{
 })
 route.post('/editProfile',upload.single('avatar'),(req,res)=>{
     // res.send(req.file)
-    let pathFoto =  req.file.path
+    let pathFoto =  req.file.path.slice(6)
     let idUser = req.session.user.id
     // res.send(pathFoto)
     model.User.update(
@@ -40,7 +40,6 @@ route.get('/', function(req,res){
         where:{id: req.session.user.id}
     })
     .then(data=>{
-        // res.send(data)
         dataUser = data[0]
         return model.Photo.findAll({
             include: [{model: model.User}],
@@ -57,6 +56,21 @@ route.get('/', function(req,res){
     .then(data=>{
         res.render('userTimeline', {user: dataUser, photos: photos, notFriends: data})
         // res.send(data)
+    })
+})
+route.get('/add/:friendId/:userId', function(req,res){
+    model.Friend.create({
+        userId: req.params.userId,
+        friendId: req.params.friendId
+    })
+    .then(data =>{
+        model.Friend.create({
+            userId: req.params.friendId,
+            friendId: req.params.userId
+        })
+    })
+    .then(data =>{
+        res.redirect('/user')
     })
 })
 

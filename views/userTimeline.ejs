@@ -6,8 +6,10 @@
     <title><%= `${user.username}'s Story` %></title>
 </head>
 <body>
+    
+
     <section class="container">
-        <div class="row">
+        <div class="row" style="padding-top: 70px">
             <div class="col-md-8" style="padding-top: 85px;padding-left: 150px;padding-right: 500px">
                 <% for(let i = 0; i < photos.length; i++) { %>
                     <% for(let j = 0; j < user.Teman.length; j++) { %>
@@ -24,15 +26,16 @@
                     <% } %>
                 <% } %>
             </div>
-            <div class="col-md-4" style="padding-top: 10%">
-                <div>
-                    <h6>Suggested</h6>
+            <div class="col-md-4" style="padding-top: 85px">
+                <div style="background-color: #efefef;height: 40px;width: 70%">
+                    <h6 style="margin-left: 5px;padding-top: 10px">Suggested</h6>
                 </div>
-                <div>
-                    <div>
-                        <div>
+            <div>
+                    <div style="height: 350px; overflow: hidden auto;width: 250px;padding-top: 20px">
+                        <div style="padding-left: 10px">
                             <% for(let i = 0; i < notFriends.length; i++) { %>
                                 <%  let friends = false %>
+                                <% let friendId = null%>
                                 <% for (let j=0; j < notFriends[i].Teman.length; j++) { %>
                                     <% if(notFriends[i].Teman[j].id === user.id){ %>
                                         <% friends = true %>
@@ -40,12 +43,17 @@
                                     <% } %>
                                 <% } %>
                                 <% if (friends === false) { %>
-                                    <div>
-                                        <button>
-                                            <div>
-                                                <span><%= notFriends[i].username %></span>
+                                    <div class="container">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="col-md-8" style="margin-bottom: 7px;margin-top: 4px">
+                                                <span><a href="/login" style="color: black"><%= notFriends[i].username %></a></span>
                                             </div>
-                                        </button>
+                                            <div class="col-md-4">
+                                                <a class="btn btn-light" href="/user/add/<%= notFriends[i].id %>/<%= user.id %>" data-toggle="modal" data-target="#exampleModal">Add</a>
+                                            </div>
+                                            
+                                        </div>
+
                                     </div>
                                 <% } %>
                             <% } %>
