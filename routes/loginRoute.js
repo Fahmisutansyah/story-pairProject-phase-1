@@ -17,7 +17,7 @@ route.post('/', function(req,res){
                id: data.id,
                username: data.username
            }
-           res.send(req.session)
+           res.redirect('/user/profile')
        }else{
            res.send('/login')
        }
