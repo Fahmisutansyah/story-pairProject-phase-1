@@ -22,7 +22,7 @@ route.post('/', function(req,res){
            res.redirect('/login')
        }
     })
-    .catch(data=>{
+    .catch(()=>{
         res.redirect('/login')
     })
 })

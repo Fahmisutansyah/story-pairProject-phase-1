@@ -41,33 +41,32 @@
         <%}%>
     <%}%>
     <%=countFriendPending%>
-    <% if(tempFriendPending.length > 0) { %>
-        <table border="2px">
-            <thead>
+    <%if(tempFriendPending.length > 0){%>
+    <table border="2px">
+        <thead>
+            <tr>
+                <th>
+                    username
+                </th>
+                <th>
+                    option
+                </th>
+            </tr>
+        </thead>
+        <tbody>            
+            <%for (let i = 0; i < tempFriendPending.length; i++) {%>
                 <tr>
-                    <th>
-                        username
-                    </th>
-                    <th>
-                        option
-                    </th>
+                    <td>
+                        <%=tempFriendPending[i].username%>
+                    </td>
+                    <td>
+                        <a href="/user/profile/acc/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Accept</a> | <a href="/user/profile/reject/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Reject</a> 
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                
-                <%for (let i = 0; i < tempFriendPending.length; i++) {%>
-                    <tr>
-                        <td>
-                            <%=tempFriendPending[i].username%>
-                        </td>
-                        <td>
-                            <a href="/user/profile/acc/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Accept</a> | <a href="/user/profile/reject/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Reject</a> 
-                        </td>
-                    </tr>
-                <%}%>
-            </tbody>
-        </table>
-    <% } %>
+            <%}%>
+        </tbody>
+    </table>
+    <%}%>
     <br>
     <a class="btn btn-primary" href="/user/editProfile" role="button">Edit Avatar</a>
 </body>
