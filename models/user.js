@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks :{
       beforeCreate : (user,options) =>{
         user.password = bcrypt.hashSync(user.password, salt);
+        user.imageProfile = '/images/default.jpg'
       }
     }
   });
