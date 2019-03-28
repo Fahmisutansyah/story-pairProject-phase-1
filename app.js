@@ -19,7 +19,7 @@ app.use(session({
 app.get('/', function (req,res){
     res.render('home')
 })
-
+app.use(express.static('views'))
 app.use('/login', require('./routes/loginRoute') )
 app.use('/user', auth, require('./routes/userRoute'))
 app.use('/register',require('./routes/registerRoute'))

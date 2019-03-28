@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <img src="<%=profileData.imageProfile.slice(6)%>" >
+    <img src="<%=profileData.imageProfile%>" >
     <br>
     <label>Full Name : <%=profileData.fullName%></label>
     <br>
@@ -41,6 +41,7 @@
         <%}%>
     <%}%>
     <%=countFriendPending%>
+    <%if(tempFriendPending.length > 0){%>
     <table border="2px">
         <thead>
             <tr>
@@ -52,8 +53,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-            
+        <tbody>            
             <%for (let i = 0; i < tempFriendPending.length; i++) {%>
                 <tr>
                     <td>
@@ -66,6 +66,7 @@
             <%}%>
         </tbody>
     </table>
+    <%}%>
     <br>
     <a class="btn btn-primary" href="/user/editProfile" role="button">Edit Avatar</a>
 </body>

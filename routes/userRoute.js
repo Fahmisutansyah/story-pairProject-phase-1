@@ -16,7 +16,7 @@ route.get('/editProfile',(req,res)=>{
 })
 route.post('/editProfile',upload.single('avatar'),(req,res)=>{
     // res.send(req.file)
-    let pathFoto =  req.file.path
+    let pathFoto =  req.file.path.slice(6)
     let idUser = req.session.user.id
     // res.send(pathFoto)
     model.User.update(

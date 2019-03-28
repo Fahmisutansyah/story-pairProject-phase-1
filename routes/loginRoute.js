@@ -19,10 +19,10 @@ route.post('/', function(req,res){
            }
            res.redirect('/user')
        }else{
-           res.send('/login')
+           res.redirect('/login')
        }
     })
-    .catch(data=>{
+    .catch(()=>{
         res.redirect('/login')
     })
 })
