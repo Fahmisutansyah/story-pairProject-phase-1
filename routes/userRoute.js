@@ -4,11 +4,11 @@ const model = require('../models')
 route.get('/', function(req,res){
     model.User.findAll({
         where:{id: req.session.user.id},
-        include: [{model: model.User, as: 'user'}]
+        include: [{model: model.Photo}]
     })
     .then(data=>{
-        // res.send(data)
-        res.render('userTimeline', {user: data})
+        res.send(data)
+        // res.render('userTimeline', {user: data})
     })
 })
 

@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'gozali',
 }))
+app.use(express.static('public'))
 
 app.set('view engine','ejs')
 
@@ -24,5 +25,5 @@ app.use('/register',require('./routes/registerRoute'))
 
 
 app.listen(8080, ()=>{
-    console.log('server is running')
+    console.log('server is running at port 8080')
 })
