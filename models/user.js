@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     fullName: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    imageProfile: DataTypes.STRING
   }, {
     hooks :{
       beforeCreate : (user,options) =>{

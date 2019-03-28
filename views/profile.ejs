@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
-  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <img src="https://www.mouktaris.co.uk/wp-content/uploads/2017/01/person-default.png" alt="default pict">
+    
+    <img src="<%=profileData.imageProfile.slice(6)%>" >
     <br>
     <label>Full Name : <%=profileData.fullName%></label>
     <br>
@@ -66,7 +67,6 @@
         </tbody>
     </table>
     <br>
-    <button type="submit" name="edit">Edit Profile</button><br>
-
+    <a class="btn btn-primary" href="/user/editProfile" role="button">Edit Avatar</a>
 </body>
 </html>
