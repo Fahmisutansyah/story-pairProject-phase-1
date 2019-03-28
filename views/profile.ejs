@@ -7,6 +7,66 @@
   
 </head>
 <body>
-    
+    <img src="https://www.mouktaris.co.uk/wp-content/uploads/2017/01/person-default.png" alt="default pict">
+    <br>
+    <label>Full Name : <%=profileData.fullName%></label>
+    <br>
+    <label>User Name : <%=profileData.username%></label>
+    <br>
+    <label>Jumlah Teman :</label> 
+    <%let countFriend = 0%>
+    <%for (let i = 0; i < friendList.length; i++){%>
+        <%if(friendList[i].id === profileData.id){%>
+            <%for (let j = 0; j < friendList[i].Teman.length; j++){%>
+                <%if (friendList[i].Teman[j].Friend.status == 1){%>
+                    <%countFriend = countFriend + 1%>
+                <%}%>
+            <%}%>
+        <%}%>
+    <%}%>
+    <%=countFriend%>
+    <br>
+    <label>Request Pertemanan : </label>
+    <%let countFriendPending = 0%>
+    <%let tempFriendPending = [] %>
+    <%for (let i = 0; i < friendList.length; i++){%>
+        <%if(friendList[i].id === profileData.id){%>
+            <%for (let j = 0; j < friendList[i].Teman.length; j++){%>
+                <%if (friendList[i].Teman[j].Friend.status == 0){%>
+                    <%countFriendPending = countFriendPending + 1%>
+                    <%tempFriendPending.push(friendList[i].Teman[j])%>
+                <%}%>
+            <%}%>
+        <%}%>
+    <%}%>
+    <%=countFriendPending%>
+    <table border="2px">
+        <thead>
+            <tr>
+                <th>
+                    username
+                </th>
+                <th>
+                    option
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <%for (let i = 0; i < tempFriendPending.length; i++) {%>
+                <tr>
+                    <td>
+                        <%=tempFriendPending[i].username%>
+                    </td>
+                    <td>
+                        <a href="/user/profile/acc/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Accept</a> | <a href="/user/profile/reject/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Reject</a> 
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+    <br>
+    <button type="submit" name="edit">Edit Profile</button><br>
+
 </body>
 </html>
