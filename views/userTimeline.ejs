@@ -3,9 +3,57 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%- include('../partials/navbar') %>
-    <title>Page Title</title>
+    <title><%= `${user.username}'s Story` %></title>
 </head>
 <body>
-    
+    <section class="container">
+        <div class="row">
+            <div class="col-md-8" style="padding-top: 85px;padding-left: 150px;padding-right: 500px">
+                <% for(let i = 0; i < photos.length; i++) { %>
+                    <% for(let j = 0; j < user.Teman.length; j++) { %>
+                        <% if (photos[i].User.username === user.Teman[j].username && user.Teman[j].Friend.status === 1) { %>
+                            <article style="padding-bottom: 50px; width: 35em">
+                                <header style="background-color: #efefef;height: 40px">
+                                    <h5 style="padding-left: 20px;padding-top: 7px;"><%= user.Teman[j].username %></h5>
+                                </header>
+                                <div>
+                                    <img src="<%= photos[i].path %>" style="max-width: 100%">
+                                </div>
+                            </article>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="col-md-4" style="padding-top: 10%">
+                <div>
+                    <h6>Suggested</h6>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <% for(let i = 0; i < notFriends.length; i++) { %>
+                                <%  let friends = false %>
+                                <% for (let j=0; j < notFriends[i].Teman.length; j++) { %>
+                                    <% if(notFriends[i].Teman[j].id === user.id){ %>
+                                        <% friends = true %>
+                                        <% break %>   
+                                    <% } %>
+                                <% } %>
+                                <% if (friends === false) { %>
+                                    <div>
+                                        <button>
+                                            <div>
+                                                <span><%= notFriends[i].username %></span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
 </body>
 </html>
