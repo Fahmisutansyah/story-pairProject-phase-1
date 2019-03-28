@@ -74,6 +74,11 @@ route.get('/add/:friendId/:userId', function(req,res){
     })
 })
 
+route.get('/logout', function(req,res){
+    req.session = null
+    res.redirect('/')
+})
+
 route.get('/profile',function(req,res){
     let input = req.session.user.id
     model.User.findByPk(input)

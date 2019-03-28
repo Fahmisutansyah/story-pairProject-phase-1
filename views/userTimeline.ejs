@@ -10,13 +10,16 @@
 
     <section class="container">
         <div class="row" style="padding-top: 70px">
-            <div class="col-md-8" style="padding-top: 85px;padding-left: 150px;padding-right: 500px">
+            <div class="col-md-8" style="padding-top: 85px;padding-left: 150px">
                 <% for(let i = 0; i < photos.length; i++) { %>
                     <% for(let j = 0; j < user.Teman.length; j++) { %>
                         <% if (photos[i].User.username === user.Teman[j].username && user.Teman[j].Friend.status === 1) { %>
                             <article style="padding-bottom: 50px; width: 35em">
-                                <header style="background-color: #efefef;height: 40px">
-                                    <h5 style="padding-left: 20px;padding-top: 7px;"><%= user.Teman[j].username %></h5>
+                                <header style="background-color: #efefef;height: 52px" class="container">
+                                    <div class="row" style="height: 52px">
+                                        <img src="<%= user.Teman[j].imageProfile %>" class="col-md-2" style="border-radius: 50%;padding-top: 1%;padding-bottom: 1%;padding-right: 4%; padding-left: 4%">
+                                        <h5 style="padding-left: 0px;padding-top: 14px;" class="col-md-10"><%= user.Teman[j].username %></h5>
+                                    </div>
                                 </header>
                                 <div>
                                     <img src="<%= photos[i].path %>" style="max-width: 100%">
@@ -46,10 +49,10 @@
                                     <div class="container">
                                         <div class="row" style="margin-bottom: 15px">
                                             <div class="col-md-8" style="margin-bottom: 7px;margin-top: 4px">
-                                                <span><a href="/login" style="color: black"><%= notFriends[i].username %></a></span>
+                                                <span><a href="/user" style="color: black"><%= notFriends[i].username %></a></span>
                                             </div>
                                             <div class="col-md-4">
-                                                <a class="btn btn-light" href="/user/add/<%= notFriends[i].id %>/<%= user.id %>" data-toggle="modal" data-target="#exampleModal">Add</a>
+                                                <a class="btn btn-light" href="/user/add/<%= notFriends[i].id %>/<%= user.id %>">Add</a>
                                             </div>
                                             
                                         </div>
