@@ -1,6 +1,36 @@
 const route = require('express').Router()
 const model = require('../models')
 const Op = model.Sequelize.Op
+const multer = require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/images')
+    },
+    filename: function (req, file, cb) {
+      cb(null,  Date.now() + '.jpg')
+    }
+  })
+   
+var upload = multer({ storage: storage })
+route.get('/editProfile',(req,res)=>{
+    res.render('editProfile')
+})
+route.post('/editProfile',upload.single('avatar'),(req,res)=>{
+    // res.send(req.file)
+    let pathFoto =  req.file.path
+    let idUser = req.session.user.id
+    // res.send(pathFoto)
+    model.User.update(
+        {imageProfile:pathFoto},{
+         where : {
+             id : idUser
+         }   
+        }
+    )
+    .then(()=>{
+        res.redirect('/user/profile')
+    })
+})
 
 route.get('/', function(req,res){
     let dataUser = null
