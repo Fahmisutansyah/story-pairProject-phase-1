@@ -16,10 +16,8 @@ route.get('/editProfile',(req,res)=>{
     res.render('editProfile')
 })
 route.post('/editProfile',upload.single('avatar'),(req,res)=>{
-    // res.send(req.file)
     let pathFoto =  req.file.path.slice(6)
     let idUser = req.session.user.id
-    // res.send(pathFoto)
     model.User.update(
         {imageProfile:pathFoto},{
          where : {
@@ -30,6 +28,9 @@ route.post('/editProfile',upload.single('avatar'),(req,res)=>{
     .then(()=>{
         res.redirect('/user/profile')
     })
+    .catch((err)=>{
+        res.send(err)
+    })
 })
 route.get('/uploadFoto',(req,res)=>{
     res.render('uploadFoto')
@@ -37,13 +38,15 @@ route.get('/uploadFoto',(req,res)=>{
 route.post('/uploadFoto',upload.single('contain'),(req,res)=>{
     let pathFoto = req.file.path.slice(6)
     let idUser = req.session.user.id
-    // res.send({path,idUser})
     model.Photo.create({
         userId : idUser,
         path : pathFoto
     })
     .then(()=>{
         res.redirect('/')
+    })
+    .catch((err)=>{
+        res.send(err)
     })
 })
 route.get('/', function(req,res){
@@ -71,6 +74,9 @@ route.get('/', function(req,res){
         res.render('userTimeline', {user: dataUser, photos: photos, notFriends: data})
         // res.send(data)
     })
+    .catch((err)=>{
+        res.send(err)
+    })
 })
 route.get('/add/:friendId/:userId', function(req,res){
     model.Friend.create({
@@ -78,7 +84,7 @@ route.get('/add/:friendId/:userId', function(req,res){
         friendId: req.params.friendId
     })
     .then(data =>{
-        model.Friend.create({
+        return model.Friend.create({
             userId: req.params.friendId,
             friendId: req.params.userId
         })
@@ -120,8 +126,11 @@ route.get('/profile',function(req,res){
             res.render('profile',{images,user: profileData,profileData,friendList})
         })
     })
-
+    .catch((err)=>{
+        res.send(err)
+    })
 })
+
 route.get('/profile/acc/:id/:idFriend',(req,res)=>{
     let id = req.params.id
     let idFriend = req.params.idFriend
@@ -139,7 +148,10 @@ route.get('/profile/acc/:id/:idFriend',(req,res)=>{
             return friend.addTeman(user, {through: {status: 1}})
         })
         .then(() => {
-            res.send('ok')
+            res.redirect('/user')
+        })
+        .catch((err)=>{
+            res.send(err)
         })
 })
 route.get('/profile/reject/:id/:idFriend',(req,res)=>{
@@ -159,7 +171,10 @@ route.get('/profile/reject/:id/:idFriend',(req,res)=>{
                 return friend.removeTeman(user)
             })
             .then(()=>{
-                res.send('okelah')
+                res.redirect('/user ')
+            })
+            .catch((err)=>{
+                res.send(err)
             })
 })
 
