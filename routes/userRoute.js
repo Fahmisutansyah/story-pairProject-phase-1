@@ -31,7 +31,21 @@ route.post('/editProfile',upload.single('avatar'),(req,res)=>{
         res.redirect('/user/profile')
     })
 })
-
+route.get('/uploadFoto',(req,res)=>{
+    res.render('uploadFoto')
+})
+route.post('/uploadFoto',upload.single('contain'),(req,res)=>{
+    let pathFoto = req.file.path.slice(6)
+    let idUser = req.session.user.id
+    // res.send({path,idUser})
+    model.Photo.create({
+        userId : idUser,
+        path : pathFoto
+    })
+    .then(()=>{
+        res.redirect('/')
+    })
+})
 route.get('/', function(req,res){
     let dataUser = null
     let photos = null
@@ -72,6 +86,9 @@ route.get('/add/:friendId/:userId', function(req,res){
     .then(data =>{
         res.redirect('/user')
     })
+    .catch((err)=>{
+        res.send(err)
+    })
 })
 
 route.get('/logout', function(req,res){
@@ -81,15 +98,26 @@ route.get('/logout', function(req,res){
 
 route.get('/profile',function(req,res){
     let input = req.session.user.id
+    let friendList 
     model.User.findByPk(input)
     .then ((profileData)=>{
         // res.send(data)
         model.User.findAll({
             include: [{model: model.User, as: "Teman"}]
         })
-        .then(friendList=>{
+        .then(listDataFriend=>{
             // res.send({profileData,friendList})
-            res.render('profile',{profileData,friendList})
+            friendList = listDataFriend
+            return model.Photo.findAll({
+                where: {
+                    userId : input 
+                }
+            })
+
+        })
+        .then(images=>{
+            // res.send(images)
+            res.render('profile',{images,user: profileData,profileData,friendList})
         })
     })
 

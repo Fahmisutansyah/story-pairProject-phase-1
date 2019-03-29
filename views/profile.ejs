@@ -3,71 +3,128 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Profile</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <!-- <script>
+            $(function(){
+            $("[data-toggle='tooltip']").tooltip();
+        })
+        </script> -->
+    <link href="/style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <div class="view-account">
+            
+            <section class="module">
+                <div class="module-inner">
+                    <div class="side-bar">
+                        <div class="user-info">
+                            <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                            <ul class="meta list list-unstyled">
+                                <li class="name"><%=profileData.fullName%>
+                                    <label class="label label-info">Full Stack Developper</label>
+                                </li>
+                                <li class="email"><a href="#"><%=profileData.email%></a></li>
+                                <li class="activity">Created At: <%=profileData.createdAt%> </li>
+                            </ul>
+                        </div>
+                        <nav class="side-menu">
+                            <ul class="nav">
+                                    <li><a href="/user"><span class="fa fa-cog"></span> HOME</a></li>
+                                <li><a href="/user/editProfile">Edit Avatar</a></li>
+                            </ul>
+                        </nav>
+                    </div>
     
-    <img src="<%=profileData.imageProfile%>" >
-    <br>
-    <label>Full Name : <%=profileData.fullName%></label>
-    <br>
-    <label>User Name : <%=profileData.username%></label>
-    <br>
-    <label>Jumlah Teman :</label> 
-    <%let countFriend = 0%>
-    <%for (let i = 0; i < friendList.length; i++){%>
-        <%if(friendList[i].id === profileData.id){%>
-            <%for (let j = 0; j < friendList[i].Teman.length; j++){%>
-                <%if (friendList[i].Teman[j].Friend.status == 1){%>
-                    <%countFriend = countFriend + 1%>
-                <%}%>
-            <%}%>
-        <%}%>
-    <%}%>
-    <%=countFriend%>
-    <br>
-    <label>Request Pertemanan : </label>
-    <%let countFriendPending = 0%>
-    <%let tempFriendPending = [] %>
-    <%for (let i = 0; i < friendList.length; i++){%>
-        <%if(friendList[i].id === profileData.id){%>
-            <%for (let j = 0; j < friendList[i].Teman.length; j++){%>
-                <%if (friendList[i].Teman[j].Friend.status == 0){%>
-                    <%countFriendPending = countFriendPending + 1%>
-                    <%tempFriendPending.push(friendList[i].Teman[j])%>
-                <%}%>
-            <%}%>
-        <%}%>
-    <%}%>
-    <%=countFriendPending%>
-    <%if(tempFriendPending.length > 0){%>
-    <table border="2px">
-        <thead>
-            <tr>
-                <th>
-                    username
-                </th>
-                <th>
-                    option
-                </th>
-            </tr>
-        </thead>
-        <tbody>            
-            <%for (let i = 0; i < tempFriendPending.length; i++) {%>
-                <tr>
-                    <td>
-                        <%=tempFriendPending[i].username%>
-                    </td>
-                    <td>
-                        <a href="/user/profile/acc/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Accept</a> | <a href="/user/profile/reject/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Reject</a> 
-                    </td>
-                </tr>
-            <%}%>
-        </tbody>
-    </table>
-    <%}%>
-    <br>
-    <a class="btn btn-primary" href="/user/editProfile" role="button">Edit Avatar</a>
-</body>
+                    <div class="content-panel">
+                        <div class="content-header-wrapper">
+                            <h2 class="title">My Story</h2>
+                            <div class="actions">
+                                    <a class="btn btn-primary" href="/user/uploadFoto" role="button">Upload Story</a>
+                            </div>
+                        </div>
+                        <div class="content-utilities">
+                        </div>
+                        <div class="drive-wrapper drive-grid-view">
+                            <div class="grid-items-wrapper">
+                                <!-- ini di isi foto hasil upload -->
+                                <%for (let i = 0; i < images.length; i++){%>                                    
+                                    <div class="drive-item module text-center">
+                                            <div class="drive-item-inner module-inner">
+                                                <div class="drive-item-title"><a href="#">Stock Image DC3214.JPG</a></div>
+                                                <div class="drive-item-thumb">
+                                                    <a href="#"><img class="img-responsive" src="<%=images[i].path%>" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="drive-item-footer module-footer">
+                                                <ul class="utilities list-inline">
+                                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download"><i class="fa fa-download"></i></a></li>
+                                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                <%}%>
+                            </div>
+                        </div>
+    
+                        <div class="drive-wrapper drive-list-view">
+                            <div class="table-responsive drive-items-table-wrapper">
+                                <%let countFriendPending = 0%>
+                                <%let tempFriendPending = [] %>
+                                <%let idBefore %>
+                                <%let idAfter%>
+                                <%let check = true%>
+                                <%for (let i = 0; i < friendList.length; i++){ %>
+                                    <%for (let j = 0; j < friendList[i].Teman.length; j++){ %>
+                                        <%if(friendList[i].id === profileData.id){ %>
+                                            <%idAfter = i %>
+                                        <%}%>
+                                        <%if (friendList[i].Teman[j].id === profileData.id && friendList[i].Teman[j].Friend.status == 0 ){ %>
+                                            <%idBefore = i %>
+                                        <%}%>
+                                        <%if (idBefore < idAfter){%>
+                                            <%check = false%>
+                                        <%}%>
+                                        <%if (check == false && friendList[i].Teman[j].id !== profileData.id && friendList[i].Teman[j].Friend.status == 0){%>
+                                            <%tempFriendPending.push(friendList[i].Teman[j])%>
+                                            <%countFriendPending = countFriendPending + 1%>
+                                        <%}%>
+                                    <%}%>
+                                <%}%>
+                                <h3>Friend Request : <%=countFriendPending%> </h3>
+                                <%if(tempFriendPending.length > 0){%>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="type"></th>
+                                            <th class="name truncate">Full Name</th>
+                                            <th class="date">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%for (let i = 0; i < tempFriendPending.length; i++) {%>
+                                        <tr>
+                                            <td class="type"><i class="fa fa-file-text-o text-primary"></i></td>
+                                            <td class="date"><%=tempFriendPending[i].fullName%></td>
+                                            <td class="name truncate"><a href="/user/profile/acc/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Accept</a> | <a href="/user/profile/reject/<%=profileData.id%>/<%=tempFriendPending[i].id%>">Reject</a></td>
+                                        </tr>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        
+    
+    </body>
+
 </html>
