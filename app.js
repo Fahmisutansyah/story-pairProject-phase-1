@@ -6,7 +6,8 @@ const session = require('express-session')
 const auth = require('./middlewares/auth')
 const multer = require('multer')
 const path = require('path')
-
+const helper = require('./helpers/formatNama')
+app.locals.formatNama = helper
 app.set('view engine','ejs')
 app.use(express.static('public'))
 app.use(bodyParser.json());

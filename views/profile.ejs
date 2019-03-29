@@ -23,7 +23,7 @@
                 <div class="module-inner">
                     <div class="side-bar">
                         <div class="user-info">
-                            <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+                            <img class="img-profile img-circle img-responsive center-block" src="<%=profileData.imageProfile%>" alt="">
                             <ul class="meta list list-unstyled">
                                 <li class="name"><%=profileData.fullName%>
                                     <label class="label label-info">Full Stack Developper</label>
@@ -55,7 +55,7 @@
                                 <%for (let i = 0; i < images.length; i++){%>                                    
                                     <div class="drive-item module text-center">
                                             <div class="drive-item-inner module-inner">
-                                                <div class="drive-item-title"><a href="#">Stock Image DC3214.JPG</a></div>
+                                                <div class="drive-item-title"><a href="#">a little story</a></div>
                                                 <div class="drive-item-thumb">
                                                     <a href="#"><img class="img-responsive" src="<%=images[i].path%>" alt=""></a>
                                                 </div>

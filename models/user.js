@@ -6,7 +6,13 @@ module.exports = (sequelize, DataTypes) => {
     fullName: DataTypes.STRING,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {type:DataTypes.STRING,
+    validate : {
+      isEmail : {
+        args : true,
+        msg : 'email format must be true'
+      }
+    }},
     imageProfile: DataTypes.STRING
   }, {
     hooks :{
@@ -21,5 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Photo, {foreignKey: 'userId'})
     User.belongsToMany(models.User,{ as: 'Teman',through: models.Friend, foreignKey : 'userId', otherKey: 'friendId'})
   };
+  User.prototype.comparePass = function(password){
+    return bcrypt.compareSync(password, this.password)
+  }
+
+
   return User;
 };

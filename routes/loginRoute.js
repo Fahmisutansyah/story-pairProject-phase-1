@@ -11,7 +11,8 @@ route.post('/', function(req,res){
     let list = req.body
     model.User.findOne({where:{username: list.username}})
     .then(data=>{
-       let check = bcrypt.compareSync(list.password, data.password)
+       let check = data.comparePass(list.password)
+    //    bcrypt.compareSync(list.password, data.password)
        if (check){
            req.session.user = {
                id: data.id,
