@@ -26,6 +26,6 @@ app.use('/user', auth, require('./routes/userRoute'))
 app.use('/register',require('./routes/registerRoute'))
 
 
-app.listen(8080, ()=>{
+app.listen(3000, ()=>{
     console.log('server is running at port 8080')
 })
